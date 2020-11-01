@@ -13,7 +13,7 @@ if (!IS_DEVELOPMENT) {
 
     plugins.push(
         purgecss({
-            content: ['src/*.html'],
+            content: ['src/*.html', 'src/App.tsx', 'src/components/*'],
             extractors: [
                 {
                     extractor: extract,
