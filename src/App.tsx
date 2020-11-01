@@ -35,13 +35,19 @@ export default class App extends React.Component {
                 });
         }
 
-        const { recovered, confirmed, deceased } = data.total;
-        const { confirmed: confirmed_new, recovered: recovered_new } = data.delta;
+        if (data) {
+            const { recovered, confirmed, deceased } = data.total;
+            const { confirmed: confirmed_new, recovered: recovered_new } = data.delta;
 
-        this.setState({
-            data: [confirmed, recovered, (confirmed - recovered), deceased],
-            newData: [confirmed_new, recovered_new, confirmed_new, null]
-        });
+            this.setState({
+                data: [confirmed, recovered, (confirmed - recovered), deceased],
+                newData: [confirmed_new, recovered_new, confirmed_new, null]
+            });
+        } else {
+            this.setState({
+                data: Array(4).fill("No Data Yet")
+            });
+        }
     }
 
     render() {
