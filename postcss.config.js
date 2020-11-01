@@ -7,10 +7,8 @@ const plugins = [ tailwindcss ];
 if (!IS_DEVELOPMENT) {
     const purgecss = require('@fullhuman/postcss-purgecss');
 
-    class TailwindExtractor {
-        static extract(content) {
-            return content.match(/[A-z0-0-:\/]+/g) || [];
-        }
+    function extract(content) {
+        return content.match(/[A-z0-0-:\/]+/g) || [];
     }
 
     plugins.push(
@@ -18,7 +16,7 @@ if (!IS_DEVELOPMENT) {
             content: ['src/*.html'],
             extractors: [
                 {
-                    extractor: TailwindExtractor,
+                    extractor: extract,
                     extensions: ['html']
                 }
             ]
