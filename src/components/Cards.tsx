@@ -1,17 +1,26 @@
 import * as React from 'react';
 import Card from './Card';
 
-export default class Cards extends React.Component {
+type CardsProps = {
+    data: Array<number>
+}
+
+export default class Cards extends React.Component<CardsProps> {
+
+    constructor(props: CardsProps) {
+        super(props);
+    }
+
     state = {
-        cards: ['Test', 'Test']
+        cards: ['Total Cases', 'Discharged', 'Active Cases', 'Deaths'],
     };
 
     render() {
         return (
-            <div className="flex">
+            <div className="flex justify-around">
                 { 
-                    this.state.cards.map(card => {
-                        return <Card key={ card } name={ card } />
+                    this.state.cards.map((card, i) => {
+                        return <Card key={ card } name={ card } count={ this.props.data[i] } />
                     }) 
                 }
             </div>

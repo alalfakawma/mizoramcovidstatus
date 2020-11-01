@@ -1,7 +1,8 @@
 import * as React from 'react';
 
 type CardProps = {
-    name: string
+    name: string,
+    count: number
 };
 
 export default class Card extends React.Component<CardProps> {
@@ -11,11 +12,11 @@ export default class Card extends React.Component<CardProps> {
 
     render() {
         return (
-            <div className="max-w-sm rounded overflow-hidden">
-                <div className="px-6 py-4">
-                    <div className="font-bold text-xl mb-2">{ this.props.name }</div>
-                    <p className="text-gray-700 text-base">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+            <div className="w-1/4 max-w-sm overflow-hidden border-gray-500 rounded hover:border-2">
+                <div className="px-6 py-10">
+                    <div className="mb-2 text-xl font-bold text-center">{ this.props.name }</div>
+                    <p className="text-base font-bold text-center text-gray-700">
+                        { this.props.count }
                     </p>
                 </div>
             </div>
