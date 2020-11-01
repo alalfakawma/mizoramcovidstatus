@@ -2,7 +2,8 @@ import * as React from 'react';
 
 type CardProps = {
     name: string,
-    count: number
+    count: number,
+    newCount: number
 };
 
 export default class Card extends React.Component<CardProps> {
@@ -12,11 +13,11 @@ export default class Card extends React.Component<CardProps> {
 
     render() {
         return (
-            <div className="w-1/4 max-w-sm overflow-hidden border-gray-500 rounded hover:border-2">
+            <div className="w-1/4 max-w-sm overflow-hidden">
                 <div className="px-6 py-10">
                     <div className="mb-2 text-xl font-bold text-center">{ this.props.name }</div>
                     <p className="text-base font-bold text-center text-gray-700">
-                        { this.props.count }
+                        { this.props.count } { (this.props.newCount) && `(+${this.props.newCount})` }
                     </p>
                 </div>
             </div>

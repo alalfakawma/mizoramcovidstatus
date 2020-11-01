@@ -2,7 +2,8 @@ import * as React from 'react';
 import Card from './Card';
 
 type CardsProps = {
-    data: Array<number>
+    data: Array<number>,
+    newData: Array<number>
 }
 
 export default class Cards extends React.Component<CardsProps> {
@@ -20,7 +21,7 @@ export default class Cards extends React.Component<CardsProps> {
             <div className="flex justify-around">
                 { 
                     this.state.cards.map((card, i) => {
-                        return <Card key={ card } name={ card } count={ this.props.data[i] } />
+                        return <Card key={ card } name={ card } count={ this.props.data[i] } newCount={ this.props.newData[i] } />
                     }) 
                 }
             </div>
