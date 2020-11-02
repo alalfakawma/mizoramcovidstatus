@@ -81,7 +81,7 @@ export default class App extends React.Component {
         return (
             <div className="flex items-center justify-center h-screen">
                 <div className="max-w-full lg:w-2/4">
-                    <ul className="flex justify-end py-2">
+                    <ul className="flex justify-end px-2 py-2 md:px-0">
                         <li>
                             { copyToClipboard }
                         </li>
