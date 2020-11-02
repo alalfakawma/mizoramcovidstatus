@@ -20,7 +20,7 @@ export default class App extends React.Component {
     };
 
     async populateData() {
-        const url = `https://api.covid19india.org/data.json`;
+        const url = `https://mcovid19.mizoram.gov.in/api/home-stats`;
         let data = undefined;
 
         if (localStorage.getItem('status_data')) {
@@ -37,11 +37,7 @@ export default class App extends React.Component {
                 .then(fetch_data => {
                     this.setState({ fetching: false });
 
-                    fetch_data.statewise.forEach((statedata: any) => {
-                        if (statedata.statecode === 'MZ') {
-                            data = statedata;
-                        }
-                    });
+                    data = fetch_data.stats;
 
                     localStorage.setItem('status_data', JSON.stringify(data));
                 })
@@ -51,12 +47,10 @@ export default class App extends React.Component {
         }
 
         if (data) {
-            const { recovered, confirmed, deaths, deltaconfirmed: confirmed_new, deltarecovered: recovered_new, deltadeaths: deaths_new, lastupdatedtime } = data;
+            const { recovered, samplesTestedPositive: confirmed, deaths } = data;
 
             this.setState({
                 data: [confirmed, recovered, (parseFloat(confirmed) - parseFloat(recovered)), deaths],
-                newData: [confirmed_new, recovered_new, confirmed_new, deaths_new],
-                lastUpdated: lastupdatedtime
             });
         } else {
             this.setState({
@@ -114,7 +108,6 @@ export default class App extends React.Component {
                     <div className="relative py-6 text-center">
                         <div className="absolute inset-0 max-w-full max-h-full" style={{ backgroundImage: `url(${thangchhuah})`, opacity: 0.2, zIndex: -1 }}></div>
                         <div className="text-3xl font-bold">Mizoram Covid19 Status</div>
-                        <div className="text-xs">Last updated: { this.state.lastUpdated }</div>
                     </div>
                     <Cards data={ this.state.data } newData={ this.state.newData } />
                     <Footer />
