@@ -5,7 +5,11 @@ module.exports = {
     },
     purge: ["./src/*.html", "./src/App.tsx", "./src/components/*"],
     theme: {
-        extend: {},
+        extend: {
+            opacity: {
+                '90': '0.90',
+            }
+        },
         fontFamily: {
             sans: ['Barlow', 'Helvetica', 'Arial', 'sans-serif'],
             serif: ['Barlow', 'Helvetica', 'Arial', 'sans-serif'],

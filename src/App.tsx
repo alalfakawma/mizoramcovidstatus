@@ -86,7 +86,7 @@ export default class App extends React.Component {
         }
 
         const fetching = this.state.fetching ? (
-            <div className="absolute inset-0 z-10 flex items-center justify-center w-screen h-screen bg-gray-500 bg-opacity-75">
+            <div className="absolute inset-0 z-10 flex items-center justify-center w-screen h-screen bg-gray-300 bg-opacity-95">
                 <div className="text-lg font-semibold animate-pulse">
                     Fetching data...
                 </div>
@@ -96,7 +96,7 @@ export default class App extends React.Component {
         return (
             <div className="flex items-center justify-center h-screen">
                 { fetching }
-                <div className="max-w-full lg:w-2/4">
+                <div className="flex-grow lg:flex-grow-0 lg:w-2/4">
                     <ul className="flex justify-end px-2 py-2 md:px-0">
                         <li className="px-2">
                             { copyToClipboard }
