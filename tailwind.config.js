@@ -3,7 +3,13 @@ module.exports = {
         removeDeprecatedGapUtilities: true,
         purgeLayersByDefault: true,
     },
-    purge: ["./src/*.html", "./src/App.tsx", "./src/components/*"],
+    purge: { 
+        content: ["./src/*.html", "./src/App.tsx", "./src/components/*"],
+
+        options: {
+            whitelist: ['w-2/4', 'w-1/4'],
+        }
+    },
     theme: {
         extend: {
             opacity: {
