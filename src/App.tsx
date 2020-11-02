@@ -22,7 +22,6 @@ export default class App extends React.Component {
         let data = undefined;
 
         if (localStorage.getItem('status_data')) {
-            console.log('asd');
             data = JSON.parse(localStorage.getItem('status_data'));
         } else {
             await fetch(url)
