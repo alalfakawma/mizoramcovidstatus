@@ -5,20 +5,27 @@ import thangchhuah from './assets/thangchhuah_pattern.png';
 
 export default class App extends React.Component {
 
+    constructor(props: any) {
+        super(props);
+
+        this.copyToClipboard = this.copyToClipboard.bind(this);
+    }
+
     state = {
         data: [],
         newData: [],
         lastUpdated: ''
     };
 
-    componentDidMount() {
+    async componentDidMount() {
         const url = `https://api.covid19india.org/data.json`;
         let data = undefined;
 
         if (localStorage.getItem('status_data')) {
+            console.log('asd');
             data = JSON.parse(localStorage.getItem('status_data'));
         } else {
-            fetch(url)
+            await fetch(url)
                 .then(res => {
                     if (!res.ok) {
                         throw new Error("HTTP error " + res.status);
@@ -54,10 +61,31 @@ export default class App extends React.Component {
         }
     }
 
+    copyToClipboard() {
+        const copyText = `Total Cases: ${this.state.data[0]}\nDischarged: ${this.state.data[1]}\nActive Cases: ${this.state.data[2]}\nDeaths: ${this.state.data[3]}`;
+
+        navigator.clipboard.writeText(copyText).then(function() {
+            alert('Data copied to clipboard, you can now share it!');
+        }, function(err) {
+            console.error('Error copying text', err);
+        });
+    }
+
     render() {
+        let copyToClipboard = null;
+        
+        if (this.state.data) {
+            copyToClipboard = <a onClick={ this.copyToClipboard } className="cursor-pointer hover:underline">copy</a>;
+        }
+
         return (
             <div className="flex items-center justify-center h-screen">
                 <div className="max-w-full lg:w-2/4">
+                    <ul className="flex justify-end py-2">
+                        <li>
+                            { copyToClipboard }
+                        </li>
+                    </ul>
                     <div className="relative py-6 text-center">
                         <div className="absolute inset-0 max-w-full max-h-full" style={{ backgroundImage: `url(${thangchhuah})`, opacity: 0.2, zIndex: -1 }}></div>
                         <div className="text-3xl font-bold">Mizoram Covid19 Status</div>

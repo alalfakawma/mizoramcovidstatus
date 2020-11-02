@@ -17,7 +17,7 @@ export default class Card extends React.Component<CardProps> {
                 <div className="py-10 sm:px-6">
                     <div className="mb-2 text-xs font-bold text-center sm:text-xl">{ this.props.name }</div>
                     <p className="text-base font-bold text-center text-gray-700">
-                        { this.props.count } { (parseFloat(this.props.newCount as any) !== 0) && `(+${this.props.newCount})` }
+                        { this.props.count } { (parseFloat(this.props.newCount as any) !== 0 && parseFloat(this.props.newCount as any)) && `(+${this.props.newCount})` }
                     </p>
                 </div>
             </div>
