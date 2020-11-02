@@ -9,21 +9,24 @@ export default class App extends React.Component {
         super(props);
 
         this.copyToClipboard = this.copyToClipboard.bind(this);
+        this.refreshData = this.refreshData.bind(this);
     }
 
     state = {
         data: [],
         newData: [],
-        lastUpdated: ''
+        lastUpdated: '',
+        fetching: false
     };
 
-    async componentDidMount() {
+    async populateData() {
         const url = `https://api.covid19india.org/data.json`;
         let data = undefined;
 
         if (localStorage.getItem('status_data')) {
             data = JSON.parse(localStorage.getItem('status_data'));
         } else {
+            this.setState({ fetching: true });
             await fetch(url)
                 .then(res => {
                     if (!res.ok) {
@@ -32,6 +35,8 @@ export default class App extends React.Component {
                     return res.json();
                 })
                 .then(fetch_data => {
+                    this.setState({ fetching: false });
+
                     fetch_data.statewise.forEach((statedata: any) => {
                         if (statedata.statecode === 'MZ') {
                             data = statedata;
@@ -60,6 +65,10 @@ export default class App extends React.Component {
         }
     }
 
+    componentDidMount() {
+        this.populateData();
+    }
+
     copyToClipboard() {
         const copyText = `Total Cases: ${this.state.data[0]}\nDischarged: ${this.state.data[1]}\nActive Cases: ${this.state.data[2]}\nDeaths: ${this.state.data[3]}`;
 
@@ -70,6 +79,11 @@ export default class App extends React.Component {
         });
     }
 
+    refreshData() {
+        localStorage.removeItem('status_data');
+        this.populateData();
+    }
+
     render() {
         let copyToClipboard = null;
         
@@ -77,12 +91,24 @@ export default class App extends React.Component {
             copyToClipboard = <a onClick={ this.copyToClipboard } className="cursor-pointer hover:underline">copy</a>;
         }
 
+        const fetching = this.state.fetching ? (
+            <div className="absolute inset-0 z-10 flex items-center justify-center w-screen h-screen bg-gray-500 bg-opacity-75">
+                <div className="text-lg font-semibold animate-pulse">
+                    Fetching data...
+                </div>
+            </div>
+        ) : null;
+
         return (
             <div className="flex items-center justify-center h-screen">
+                { fetching }
                 <div className="max-w-full lg:w-2/4">
                     <ul className="flex justify-end px-2 py-2 md:px-0">
-                        <li>
+                        <li className="px-2">
                             { copyToClipboard }
+                        </li>
+                        <li className="px-2">
+                            <a onClick={ this.refreshData } className="cursor-pointer hover:underline">refresh</a>
                         </li>
                     </ul>
                     <div className="relative py-6 text-center">
