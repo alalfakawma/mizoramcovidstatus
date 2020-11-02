@@ -86,7 +86,7 @@ export default class App extends React.Component {
         }
 
         const fetching = this.state.fetching ? (
-            <div className="absolute inset-0 z-10 flex items-center justify-center w-screen h-screen bg-gray-300 bg-opacity-95">
+            <div className="absolute inset-0 z-10 flex items-center justify-center w-screen h-screen bg-gray-300 bg-opacity-90">
                 <div className="text-lg font-semibold animate-pulse">
                     Fetching data...
                 </div>
