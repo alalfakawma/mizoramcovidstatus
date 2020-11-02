@@ -57,7 +57,7 @@ export default class App extends React.Component {
     render() {
         return (
             <div className="flex items-center justify-center h-screen">
-                <div className="w-2/4">
+                <div className="max-w-full lg:w-2/4">
                     <div className="relative py-6 text-center">
                         <div className="absolute inset-0 max-w-full max-h-full" style={{ backgroundImage: `url(${thangchhuah})`, opacity: 0.2, zIndex: -1 }}></div>
                         <div className="text-3xl font-bold">Mizoram Covid19 Status</div>
