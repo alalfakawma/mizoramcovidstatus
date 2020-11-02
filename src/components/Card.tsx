@@ -14,8 +14,8 @@ export default class Card extends React.Component<CardProps> {
     render() {
         return (
             <div className="w-1/4 max-w-sm overflow-hidden">
-                <div className="px-6 py-10">
-                    <div className="mb-2 text-xl font-bold text-center">{ this.props.name }</div>
+                <div className="py-10 sm:px-6">
+                    <div className="mb-2 text-xs font-bold text-center sm:text-xl">{ this.props.name }</div>
                     <p className="text-base font-bold text-center text-gray-700">
                         { this.props.count } { (parseFloat(this.props.newCount as any) !== 0) && `(+${this.props.newCount})` }
                     </p>
