@@ -20,7 +20,7 @@ export default class App extends React.Component {
     };
 
     async populateData() {
-        const url = `https://mcovid19.mizoram.gov.in/api/home-stats`;
+        const url = 'https://api.mzcovstat.com:3000/stats';
         let data = undefined;
 
         if (localStorage.getItem('status_data')) {
@@ -37,7 +37,7 @@ export default class App extends React.Component {
                 .then(fetch_data => {
                     this.setState({ fetching: false });
 
-                    data = fetch_data.stats;
+                    data = fetch_data;
 
                     localStorage.setItem('status_data', JSON.stringify(data));
                 })
@@ -47,10 +47,10 @@ export default class App extends React.Component {
         }
 
         if (data) {
-            const { recovered, samplesTestedPositive: confirmed, deaths } = data;
+            const { recovered, samplesTestedPositive: confirmed, personsHospitalised: active, deaths } = data;
 
             this.setState({
-                data: [confirmed, recovered, (parseFloat(confirmed) - parseFloat(recovered)), deaths],
+                data: [confirmed, recovered, active, deaths],
             });
         } else {
             this.setState({
