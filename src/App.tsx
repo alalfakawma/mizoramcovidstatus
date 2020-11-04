@@ -14,13 +14,14 @@ export default class App extends React.Component {
 
     state = {
         data: [],
-        newData: [],
+        oldData: [],
         lastUpdated: '',
         fetching: false
     };
 
     async populateData() {
-        const url = 'https://api.mzcovstat.com:3000/stats';
+        // const url = 'https://api.mzcovstat.com:3000/stats';
+        const url = 'http://localhost:3000/stats';
         let data = undefined;
 
         if (localStorage.getItem('status_data')) {
@@ -47,7 +48,15 @@ export default class App extends React.Component {
         }
 
         if (data) {
-            const { recovered, samplesTestedPositive: confirmed, personsHospitalised: active, deaths } = data;
+            const { recovered, samplesTestedPositive: confirmed, personsHospitalised: active, deaths } = data.latest;
+
+            if (data.old) {
+                const { recovered: oldRecovered, samplesTestedPositive: oldConfirmed, personsHospitalised: oldActive, deaths: oldDeaths } = data.old;
+
+                this.setState({
+                    oldData: [oldConfirmed, oldRecovered, oldActive, oldDeaths]
+                });
+            }
 
             this.setState({
                 data: [confirmed, recovered, active, deaths],
@@ -109,7 +118,7 @@ export default class App extends React.Component {
                         <div className="absolute inset-0 max-w-full max-h-full" style={{ backgroundImage: `url(${thangchhuah})`, opacity: 0.2, zIndex: -1 }}></div>
                         <div className="text-3xl font-bold">Mizoram Covid19 Status</div>
                     </div>
-                    <Cards data={ this.state.data } newData={ this.state.newData } />
+                    <Cards data={ this.state.data } oldData={ this.state.oldData } />
                     <Footer />
                 </div>
             </div>
