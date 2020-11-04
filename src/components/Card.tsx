@@ -14,7 +14,7 @@ export default class Card extends React.Component<CardProps> {
     render() {
         let oldCountEl = null;
 
-        if (this.props.oldCount !== null || this.props.oldCount !== undefined || this.props.oldCount !== 0) {
+        if (this.props.oldCount !== null && this.props.oldCount !== undefined && this.props.oldCount !== 0) {
             oldCountEl = <span>({ this.props.oldCount > 0 ? '+' : '' }{ this.props.oldCount })</span>;
         }
 
