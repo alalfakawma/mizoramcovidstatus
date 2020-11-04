@@ -50,10 +50,15 @@ export default class App extends React.Component {
             const { recovered, samplesTestedPositive: confirmed, personsHospitalised: active, deaths } = data.latest;
 
             if (data.old) {
-                const { recovered: oldRecovered, samplesTestedPositive: oldConfirmed, personsHospitalised: oldActive, deaths: oldDeaths } = data.old;
+                const { recovered: oldRecovered, samplesTestedPositive: oldConfirmed, deaths: oldDeaths } = data.old;
 
                 this.setState({
-                    oldData: [oldConfirmed, oldRecovered, oldActive, oldDeaths]
+                    oldData: [
+                        (parseFloat(confirmed) - parseFloat(oldConfirmed)),
+                        (parseFloat(recovered) - parseFloat(oldRecovered)),
+                        (parseFloat(confirmed) - parseFloat(oldConfirmed)),
+                        (parseFloat(deaths) - parseFloat(oldDeaths)),
+                    ]
                 });
             }
 

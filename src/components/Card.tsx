@@ -3,7 +3,7 @@ import * as React from 'react';
 type CardProps = {
     name: string,
     count: number,
-    oldCount: number
+    oldCount?: number
 };
 
 export default class Card extends React.Component<CardProps> {
@@ -15,8 +15,7 @@ export default class Card extends React.Component<CardProps> {
         let oldCountEl = null;
 
         if (this.props.oldCount !== null || this.props.oldCount !== undefined || this.props.oldCount !== 0) {
-            const count = this.props.count - this.props.oldCount;
-            oldCountEl = <span>({ count > 0 ? '+' : '' }{ count })</span>;
+            oldCountEl = <span>({ this.props.oldCount > 0 ? '+' : '' }{ this.props.oldCount })</span>;
         }
 
         return (
