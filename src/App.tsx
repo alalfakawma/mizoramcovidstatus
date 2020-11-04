@@ -20,8 +20,7 @@ export default class App extends React.Component {
     };
 
     async populateData() {
-        // const url = 'https://api.mzcovstat.com:3000/stats';
-        const url = 'http://localhost:3000/stats';
+        const url = 'https://api.mzcovstat.com:3000/stats';
         let data = undefined;
 
         if (localStorage.getItem('status_data')) {
